@@ -64,22 +64,35 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'Xlib',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
+          width: 28,
         },
         items: [
+          {to: '/', label: 'Home', position: 'right'},
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
+            position: 'right',
+            label: 'Wiki',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'right',
+            label: 'interview',
+          },
+          {to: '/blog', label: 'Blog', position: 'right'},
+          {to: '/blog', label: 'Life', position: 'right'},
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'search',
             position: 'right',
           },
         ],
