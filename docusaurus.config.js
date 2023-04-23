@@ -28,8 +28,8 @@ const config = {
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans'],
   },
 
   presets: [
@@ -58,6 +58,27 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: "threejs",
+        path: "documents/wiki/threejs",
+        routeBasePath: "threejs",
+        sidebarPath: require.resolve("./sidebars.js"),
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: "communication",
+        path: "documents/wiki/communication",
+        routeBasePath: "communication",
+        sidebarPath: require.resolve("./sidebars.js"),
+      },
+    ]
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -73,10 +94,18 @@ const config = {
         items: [
           {to: '/', label: 'Home', position: 'right'},
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'right',
             label: 'Wiki',
+            items: [
+              {
+                label: 'Three.js',
+                to: '/three',
+              },
+              {
+                label: '交互通信',
+                to: '/three',
+              }
+            ],
           },
           {
             type: 'docSidebar',
@@ -85,16 +114,18 @@ const config = {
             label: 'interview',
           },
           {to: '/blog', label: 'Blog', position: 'right'},
-          {to: '/blog', label: 'Life', position: 'right'},
+          {
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'right',
+            label: 'Life',
+          },
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
             position: 'right',
           },
-          {
-            type: 'search',
-            position: 'right',
-          },
+          {type: 'search', position: 'right', },
         ],
       },
       footer: {
