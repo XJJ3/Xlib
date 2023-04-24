@@ -58,26 +58,26 @@ const config = {
     ],
   ],
 
-  plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: "threejs",
-        path: "documents/wiki/threejs",
-        routeBasePath: "threejs",
-        sidebarPath: require.resolve("./sidebars.js"),
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: "communication",
-        path: "documents/wiki/communication",
-        routeBasePath: "communication",
-        sidebarPath: require.resolve("./sidebars.js"),
-      },
-    ]
-  ],
+  // plugins: [
+  //   [
+  //     '@docusaurus/plugin-content-docs',
+  //     {
+  //       id: "threejs",
+  //       path: "documents/wiki/threejs",
+  //       routeBasePath: "threejs",
+  //       sidebarPath: require.resolve("./sidebars.js"),
+  //     },
+  //   ],
+  //   [
+  //     '@docusaurus/plugin-content-docs',
+  //     {
+  //       id: "communication",
+  //       path: "documents/wiki/communication",
+  //       routeBasePath: "communication",
+  //       sidebarPath: require.resolve("./sidebars.js"),
+  //     },
+  //   ]
+  // ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -87,7 +87,7 @@ const config = {
       navbar: {
         title: 'Xlib',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Xlib',
           src: 'img/logo.svg',
           width: 28,
         },
@@ -99,24 +99,26 @@ const config = {
             items: [
               {
                 label: 'Three.js',
-                to: '/three',
+                type: 'docSidebar',
+                sidebarId: 'threejsSidebar',
               },
               {
                 label: '交互通信',
-                to: '/three',
+                type: 'docSidebar',
+                sidebarId: 'communicationSidebar',
               }
             ],
           },
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'interviewSidebar',
             position: 'right',
             label: 'interview',
           },
           {to: '/blog', label: 'Blog', position: 'right'},
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'interviewSidebar',
             position: 'right',
             label: 'Life',
           },
