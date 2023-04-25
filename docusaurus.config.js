@@ -103,9 +103,15 @@ const config = {
             type: "docSidebar",
             sidebarId: "interviewSidebar",
             position: "right",
-            label: "interview",
+            label: "Interview",
           },
           { to: "/blog", label: "Blog", position: "right" },
+          {
+            type: "docSidebar",
+            sidebarId: "interviewSidebar",
+            position: "right",
+            label: "Learn",
+          },
           {
             href: "https://github.com/facebook/docusaurus",
             label: "GitHub",
