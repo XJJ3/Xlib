@@ -107,12 +107,6 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "right" },
           {
-            type: "docSidebar",
-            sidebarId: "interviewSidebar",
-            position: "right",
-            label: "Life",
-          },
-          {
             href: "https://github.com/facebook/docusaurus",
             label: "GitHub",
             position: "right",
