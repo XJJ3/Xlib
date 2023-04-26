@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
+  title: "Xlib",
   tagline: "Dinosaurs are cool",
   favicon: "img/favicon.ico",
 
@@ -37,6 +37,11 @@ const config = {
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        pages: {
+          path: "src/pages",
+          // 指定 pages 的路由路径，因为 blog 作为主页了
+          routeBasePath: "/pages",
+        },
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
@@ -53,11 +58,13 @@ const config = {
           },
         },
         blog: {
+          routeBasePath: "/",
+          path: "./blog",
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          readingTime: ({ content, defaultReadingTime }) => defaultReadingTime({ content, options: { wordsPerMinute: 100 } }),
+          postsPerPage: 2,
+          blogSidebarCount: 10
+          
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -79,7 +86,7 @@ const config = {
           width: 28,
         },
         items: [
-          { to: "/", label: "Home", position: "right", exact: true },
+          { to: "/pages", label: "Home", position: "right", exact: true },
           {
             type: "dropdown",
             position: "right",
@@ -105,7 +112,7 @@ const config = {
             position: "right",
             label: "Interview",
           },
-          { to: "/blog", label: "Blog", position: "right" },
+          { to: "/", label: "Blog", position: "right", exact: true },
           {
             type: "docSidebar",
             sidebarId: "interviewSidebar",
@@ -128,7 +135,7 @@ const config = {
             items: [
               {
                 label: "Tutorial",
-                to: "/docs/intro",
+                to: "/",
               },
             ],
           },
@@ -154,7 +161,7 @@ const config = {
             items: [
               {
                 label: "Blog",
-                to: "/blog",
+                to: "/",
               },
               {
                 label: "GitHub",
