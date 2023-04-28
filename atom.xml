@@ -2,11 +2,20 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xlib.top/</id>
     <title>Xlib Blog</title>
-    <updated>2021-08-26T00:00:00.000Z</updated>
+    <updated>2023-04-28T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xlib.top/"/>
     <subtitle>Xlib Blog</subtitle>
     <icon>https://xlib.top/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[第一篇博客]]></title>
+        <id>https://xlib.top/first-blog</id>
+        <link href="https://xlib.top/first-blog"/>
+        <updated>2023-04-28T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Docusaurus Plushie]]></summary>
+        <content type="html"><![CDATA[<p><img loading="lazy" alt="Docusaurus Plushie" src="/assets/images/author_avatar-e24e6fa11f6176af5414c6001d3b411b.jpeg" width="1280" height="1280" class="img_ev3q"></p><p>我是一名前端开发，在早期也做过Java，不过近两年一直在专注前端领域开发。</p><p>从业这几年，平时在工作和学习中也遇到了不少技术问题，比如有一些不起眼的小问题，但自己在当时水平有限就是解决不了，也有一些实实在在能摆上台面的技术难点，花了不少时间从各个方面去下手也终于解决。</p><p>所以遇到过这么多问题以及这些问题解决方案要是不做个记录，很快就会随着时间飘走了。</p><p>偶然发现一篇技术文章的作者就是用 Docusaurus 来做为他自己的知识体系载体，发现以写文档的形式去记录开发过程中的点滴也是挺不错的，并且 Docusaurus 的风格也是让我也别喜欢，就决心用 Docusaurus 来搭建一个自己的网站。</p><p>其实早期的时候也用 Hexo 搭建过自己的博客，但是没坚持太久，之前买的域名又过期了，续费还特别贵，就直接放弃了。</p><p>搭建这个网站的初衷主要是记录自己积累的技术知识，以便能日后还能查看，同时如果能给其他的前端兄弟们提供一些灵感和帮助那自然更好。我会尽量以专业的话术去表述一些技术方案，文笔可能不会太好，如果表述不好或者内容不正确，欢迎大佬们指点纠正，哈哈。</p>]]></content>
+        <category label="hello" term="hello"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>https://xlib.top/welcome</id>
@@ -47,8 +56,8 @@
         <summary type="html"><![CDATA[This is the summary of a very long blog post,]]></summary>
         <content type="html"><![CDATA[<p>This is the summary of a very long blog post,</p><p>Use a <code>&lt;!--</code> <code>truncate</code> <code>--&gt;</code> comment to limit blog post size in the list view.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content>
         <author>
-            <name>Endilie Yacop Sucipto</name>
-            <uri>https://github.com/endiliey</uri>
+            <name>Junjie Xu</name>
+            <uri>https://github.com/XJJ3</uri>
         </author>
         <category label="hello" term="hello"/>
         <category label="docusaurus" term="docusaurus"/>
