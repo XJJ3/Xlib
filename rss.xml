@@ -9,12 +9,12 @@
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
         <item>
-            <title><![CDATA[第一篇博客]]></title>
+            <title><![CDATA[开篇]]></title>
             <link>https://xlib.top/first-blog</link>
             <guid>https://xlib.top/first-blog</guid>
             <pubDate>Fri, 28 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Docusaurus Plushie]]></description>
-            <content:encoded><![CDATA[<p><img loading="lazy" alt="Docusaurus Plushie" src="/assets/images/author_avatar-e24e6fa11f6176af5414c6001d3b411b.jpeg" width="1280" height="1280" class="img_ev3q"></p><p>我是一名前端开发，在早期也做过Java，不过近两年一直在专注前端领域开发。</p><p>从业这几年，平时在工作和学习中也遇到了不少技术问题，比如有一些不起眼的小问题，但自己在当时水平有限就是解决不了，也有一些实实在在能摆上台面的技术难点，花了不少时间从各个方面去下手也终于解决。</p><p>所以遇到过这么多问题以及这些问题解决方案要是不做个记录，很快就会随着时间飘走了。</p><p>偶然发现一篇技术文章的作者就是用 Docusaurus 来做为他自己的知识体系载体，发现以写文档的形式去记录开发过程中的点滴也是挺不错的，并且 Docusaurus 的风格也是让我也别喜欢，就决心用 Docusaurus 来搭建一个自己的网站。</p><p>其实早期的时候也用 Hexo 搭建过自己的博客，但是没坚持太久，之前买的域名又过期了，续费还特别贵，就直接放弃了。</p><p>搭建这个网站的初衷主要是记录自己积累的技术知识，以便能日后还能查看，同时如果能给其他的前端兄弟们提供一些灵感和帮助那自然更好。我会尽量以专业的话术去表述一些技术方案，文笔可能不会太好，如果表述不好或者内容不正确，欢迎大佬们指点纠正，哈哈。</p>]]></content:encoded>
+            <content:encoded><![CDATA[<p><img loading="lazy" alt="Docusaurus Plushie" src="/assets/images/author_avatar-e24e6fa11f6176af5414c6001d3b411b.jpeg" width="1280" height="1280" class="img_ev3q"></p><p>我是一名前端开发，喜欢研究一些新的技术。</p><p>从业这几年，平时在工作和学习中也遇到了不少技术问题，比如有一些不起眼的小问题，但自己在当时水平有限就是解决不了，也有一些实实在在能摆上台面的技术难点，花了不少时间从各个方面去下手也终于解决。</p><p>所以遇到过这么多问题以及这些问题解决方案要是不做个记录，很快就会随着时间飘走了。</p><p>偶然发现一篇技术文章的作者就是用 Docusaurus 来做为他自己的知识体系载体，发现以写文档的形式去记录开发过程中的点滴也是挺不错的，并且 Docusaurus 的风格也是让我也别喜欢，就决心用 Docusaurus 来搭建一个自己的网站。</p><p>早期的时候也用 Hexo 搭建过自己的博客，但是没坚持太久，之前买的域名又过期了，续费还特别贵，就直接放弃了。</p><p>之前也开发过一个小程序，主要功能是用来收录前端方面的面试题，那时候我算是小程序云开发的比较早的一批尝鲜者，小程序云开发环境还是免费的，白嫖了两年多之后，突然云开发环境的最基础版也开始进行收费了，被迫缴费续了几个月，最后因为忘记续费，导致云开发环境被收回，数据也被彻底删除，很遗憾我这两年收录的面试题。所以在这里我同样想设立一个单独的目录来收录一些面试题，供自己学习使用，更希望能给他人带来帮助。</p><p>搭建这个网站的初衷主要是记录自己积累的技术知识，以便能日后还能查看，同时如果能给其他的前端兄弟们提供一些灵感和帮助那自然更好。我会尽量以专业的话术去表述一些技术方案，文笔可能不会太好，如果表述不好或者内容不正确，欢迎大佬们指点纠正，哈哈。</p>]]></content:encoded>
             <category>hello</category>
         </item>
         <item>
