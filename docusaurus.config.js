@@ -19,9 +19,9 @@ const config = {
   baseUrl: "/",
 
   // GitHub pages deployment config.
-  organizationName: "XJJ3",
-  projectName: "Xlib",
-  deploymentBranch: "gh-pages",
+  // organizationName: "XJJ3",
+  // projectName: "Xlib",
+  // deploymentBranch: "gh-pages",
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
