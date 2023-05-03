@@ -3,6 +3,8 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const math = require("remark-math");
+const katex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -46,6 +48,8 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           breadcrumbs: false,
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
 
           // 自定义侧边栏生成器，过滤index.md索引页
           async sidebarItemsGenerator({defaultSidebarItemsGenerator, ...args}) {
@@ -62,9 +66,8 @@ const config = {
           path: "./blog",
           showReadingTime: true,
           readingTime: ({ content, defaultReadingTime }) => defaultReadingTime({ content, options: { wordsPerMinute: 100 } }),
-          postsPerPage: 2,
-          blogSidebarCount: 10
-          
+          postsPerPage: 4,
+          blogSidebarCount: 10,
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
