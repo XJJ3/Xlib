@@ -130,7 +130,9 @@ const config = {
           },
           {
             href: "https://github.com/facebook/docusaurus",
-            label: "GitHub",
+            // custom logo in custom.css
+            className: "header-github-link",
+            "aria-label": "GitHub repository",
             position: "right",
           },
           { type: "search", position: "right" },

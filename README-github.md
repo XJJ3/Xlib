@@ -1,0 +1,4 @@
+目前是部署在 vercel上，
+如果要部署在github pages，则在根目录下新建文件夹目录.github/workflows,
+然后将根目录下的deploy.yml文件移到该目录下，
+接着在docusaurus.config.js中将 organizationName、projectName、deploymentBranch字段注释放开

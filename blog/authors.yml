@@ -1,17 +1,5 @@
 xujunjie:
   name: Junjie Xu
-  title: Maintainer of Xlib
+  title: Front End Engineer · Maintainer of Xlib
   url: https://github.com/XJJ3
   image_url: img/author_avatar.jpeg
-
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
-
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
