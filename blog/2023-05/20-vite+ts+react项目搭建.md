@@ -1,12 +1,14 @@
 ---
 slug: vite+ts+react
-title: 搭建 Vite+TypeScript+React 项目
+title: Vite+TypeScript+React
 authors: xujunjie
 tags: [vite, react]
 ---
 
 
 最近需要从零开始开发一个后台管理系统，因为之前都是用的Vue3、Vue2，React的使用经验仅仅只有一次采用Taro开发小程序的经历，所以这次想采用React框架开发，来深入了解React的开发体验。
+
+<!--truncate-->
 
 ## 创建项目
 
@@ -27,7 +29,7 @@ Prettier 是一个代码格式化程序，侧重于代码格式化检查
 
 运行命令安装Prettier `pnpm add -D prettier`，然后添加两个文件`.prettierrc.js`（Prettier的配置文件，定义Prettier的代码格式化规则） 和 `.prettierignore`（Prettier的忽略文件，定义不需要进行代码规范检查的文件）。完整的Prettier配置规范参考[Prettier官方文档](https://prettier.io/docs/en/options.html)。
 
-- .prettierrc.js 文件参考内容：
+- `.prettierrc.js` 文件参考内容：
 ``` javascript
 module.exports = {
   printWidth: 120, // 指定编译器换行的行长
@@ -46,7 +48,7 @@ module.exports = {
 };
 ```
 
-- .prettierignore 文件参考内容：
+- `.prettierignore` 文件参考内容：
 ``` 
 # Ignore artifacts:
 /node_modules
@@ -203,4 +205,116 @@ Stylelint 可以选择性添加配置，不必要完全按照流程添加
 :::
 
 
-## tsconfoig
+## 配置 tsconfig
+
+``` javascript
+{
+  "compilerOptions": {
+    "baseUrl": "./", // 路径配置
+    "outDir": "./dist",
+    "paths": { "@": ["src"], "@/*": ["src/*"] },
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // 要包含在编译中的依赖库文件列表
+    "module": "ESNext", // 指定模块代码生成
+    "skipLibCheck": true, // 跳过所有声明文件的类型检查
+    "allowJs": true, // 允许编译 JavaScript 文件
+    "esModuleInterop": true, // 禁用命名空间引用 (import * as fs from "fs") 启用 CJS/AMD/UMD 风格引用 (import fs from "fs")
+    "allowSyntheticDefaultImports": true, // 允许从没有默认导出的模块进行默认导入
+    "forceConsistentCasingInFileNames": true, //	禁止对同一个文件的不一致的引用。
+    "experimentalDecorators": true, // 启用对ES装饰器的实验性支持
+
+    /* Bundler mode */
+    "moduleResolution": "node", // 使用 Node.js 风格解析模块
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true, // 允许使用 .json 扩展名导入的模块
+    "isolatedModules": true, // 将每个文件作为单独的模块
+    "noEmit": true, // 不输出(意思是不编译代码，只执行类型检查)
+    "jsx": "react-jsx",
+    
+
+    /* Linting */
+    "strict": true, // 启用所有严格类型检查选项
+    "noUnusedLocals": true, // 报告未使用的本地变量的错误
+    "noUnusedParameters": true, // 报告未使用参数的错误
+    "noFallthroughCasesInSwitch": true, // 报告switch语句的fallthrough错误。（即，不允许switch的case语句贯穿）
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx","src/**/*.d.ts", "lib"],
+  "references": [{ "path": "./tsconfig.node.json"}]
+}
+```
+
+## 最后
+以上一个简单的React项目创建的流程，整体配置属于比较简洁，最后再配置一下 `vite.config.ts`。修改 `vite.config.ts` 内容：
+
+``` javascript
+import { ConfigEnv, defineConfig, UserConfig } from 'vite';
+
+import { createConfig } from './build';
+
+// https://vitejs.dev/config/
+export default defineConfig((params: ConfigEnv): UserConfig => {
+  const config = createConfig(params);
+  return config;
+});
+```
+
+然后在根目录下新建 build 目录，然后新建 `index.ts`、`plugins.ts`、`types.ts`、`utils.ts`。
+
+ - `index.ts`：
+``` javascript
+import merge from 'deepmerge';
+import { ConfigEnv, UserConfig } from 'vite';
+
+import { createPlugins } from './plugins';
+import { Configure } from './types';
+import { pathResolve } from './utils';
+
+export const createConfig = (params: ConfigEnv, configure?: Configure): UserConfig => {
+  const isBuild = params.command === 'build';
+
+  return merge<UserConfig>(
+    {
+      plugins: createPlugins(isBuild),
+      resolve: {
+        alias: {
+          '@': pathResolve('src')
+        }
+      },
+      css: {
+        modules: {
+          localsConvention: 'camelCaseOnly'
+        }
+      }
+    },
+    typeof configure === 'function' ? configure(params, isBuild) : {},
+    {
+      arrayMerge: (_d, s) => Array.from(new Set([..._d, ...s]))
+    }
+  );
+};
+```
+
+- `plugins.ts`：
+``` javascript
+import react from '@vitejs/plugin-react';
+import { PluginOption } from 'vite';
+
+export function createPlugins(isBuild: boolean) {
+  const vitePlugins: (PluginOption | PluginOption[])[] = [react()];
+  return vitePlugins;
+}
+```
+
+- `types.ts`：
+``` javascript
+import { ConfigEnv, UserConfig } from 'vite';
+
+export type Configure = (params: ConfigEnv, isBuild: boolean) => UserConfig;
+```
+
+- `utils.ts`：
+``` javascript
+import { resolve } from 'path';
+
+export const pathResolve = (dir: string) => resolve(__dirname, '../', dir);
+```
