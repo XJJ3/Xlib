@@ -96,7 +96,78 @@ document.body.appendChild(stats.dom);
 
 :::
 
-下面贴出一段比较核心的内容：
+核心代码：
+``` js
+// 6个面的方向和顶点相对位置
+const faces = [
+  {
+    // left
+    dir: [-1, 0, 0],
+    corners: [[0, 1, 0], [0, 0, 0], [0, 1, 1], [0, 0, 1]],
+  },
+  {
+    // right
+    dir: [1, 0, 0],
+    corners: [[1, 1, 1], [1, 0, 1], [1, 1, 0], [1, 0, 0]],
+  },
+
+  {
+    // back
+    dir: [0, -1, 0],
+    corners: [[1, 0, 1], [0, 0, 1], [1, 0, 0], [0, 0, 0]],
+  },
+  {
+    // front
+    dir: [0, 1, 0],
+    corners: [[0, 1, 1], [1, 1, 1], [0, 1, 0], [1, 1, 0]],
+  },
+
+  {
+    // bottom
+    dir: [0, 0, -1],
+    corners: [[1, 0, 0], [0, 0, 0], [1, 1, 0], [0, 1, 0]],
+  },
+  {
+    // top
+    dir: [0, 0, 1],
+    corners: [[0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],],
+  },
+];
+
+const map = new Map<string, number>();
+for (let i = 0; i < data.length; i++) {
+  map.set(`${data[i]},${data[++i]},${data[++i]},`, 1);
+}
+
+const positions = [];
+const normals = [];
+const indices = [];
+for (var [key] of map) {
+  const [x, y, z] = key.split(",").map((n) => Number(n));
+
+  for (const { dir, corners } of faces) {
+
+    // 根据不同的面判断对应方向是否存在相邻的点
+    const neighbor = map.get(`${x+dir[0]},${y+dir[1]},${z+dir[2]}`);
+
+    if (!neighbor) {
+      const ndx = positions.length / 3;
+      for (const pos of corners) {
+        positions.push(pos[0] + x, pos[1] + y, pos[2] + z);
+        normals.push(...dir);
+      }
+      indices.push(ndx, ndx + 1, ndx + 2, ndx + 2, ndx + 1, ndx + 3);
+    }
+  }
+}
+
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+geometry.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(normals), 3));
+geometry.setIndex(indices);
+const mesh = new THREE.Mesh(geometry, material); // 体素图对象
+```
 
 
 
