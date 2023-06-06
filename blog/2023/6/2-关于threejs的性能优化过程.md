@@ -188,3 +188,6 @@ const mesh = new THREE.Mesh(geometry, material); // 体素图对象
 2、给线程减压
 
 3、
+
+
+### 终极优化：WASM
