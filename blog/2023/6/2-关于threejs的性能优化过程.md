@@ -89,7 +89,7 @@ document.body.appendChild(stats.dom);
 
 可能有人问为什么不用 `PlaneGeometry` 去画面，这样创建一个面似乎更方便。
 
-因为用 `PlaneGeometry` 去创建一个面是在代码上是显得更方便，但是默认情况下平面的法线向量是指向正Z轴方向的，也就是平面垂直于屏幕。如果你想改变平面的朝向，可以通过旋转平面的方式来实现，有些繁琐。不仅如此，还有其他方面也能说明`BufferGeometry` 似乎更合适：
+因为用 `PlaneGeometry` 去创建一个面是在代码上是显得更方便，但是默认情况下平面的法线向量是指向正Z轴方向的，也就是平面垂直于屏幕。如果你想改变平面的朝向，需要通过旋转平面的方式来实现，有些繁琐。不仅如此，还有其他方面也能说明`BufferGeometry` 似乎更合适：
 - 性能更优：`BufferGeometry`使用底层的缓冲区对象（buffer）来存储几何数据，这样可以更高效地传递数据给GPU进行渲染
 - `BufferGeometry`在内存中占用的空间更小
 - BufferGeometry提供了更多的属性和方法来对几何体进行自定义和操作。可以直接修改缓冲区中的顶点坐标、法线、UV坐标等信息，或者添加额外的自定义属性。这使得你可以更灵活地控制几何体的外观和行为。
@@ -161,7 +161,6 @@ for (var [key] of map) {
   }
 }
 
-
 const geometry = new THREE.BufferGeometry();
 geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
 geometry.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(normals), 3));
@@ -169,9 +168,82 @@ geometry.setIndex(indices);
 const mesh = new THREE.Mesh(geometry, material); // 体素图对象
 ```
 
-
-
 ### 减少渲染线程压力
+上面提到减少重复面来提高渲染的压力，但是如果计算的数据量够大，渲染频率够高，仅仅只是依靠减少重复面来达到高性能渲染还是不够的。
+
+这里先提一点，JavaScript是一种单线程编程语言，这是它的一个重要特点。这意味着JavaScript引擎在执行JavaScript代码时只有一个主线程，按照代码的顺序逐行执行。这与其他一些编程语言（如Java或C++）不同，这些语言可以使用多个线程同时执行代码。恰恰因为这个单线程的特性，每一次渲染之前都需要计算大量数据，需要消耗很多时间，如果数据量够大，每一次遍历很可能都需要几十毫秒或者几百毫秒甚至更多，那么每秒能够渲染的帧数就非常有限。
+
+所以为了减少主线程的资源占用，可以采用多线程的方式（很多人会问，js也能多线程吗，当然可以！！）。我们用`Web Worker`来实现js的多线程，不是很了解的可以看[MDN web docs 文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers)。
+
+创建一个文件`point.worker.ts`：
+
+``` js
+const ctx: Worker = self as any;
+ctx.addEventListener('message', (res) => {
+
+  // 获取数据源
+  const data = res.data;
+
+  const map = new Map<string, number>();
+  for (let i = 0; i < data.length; i++) {
+    map.set(`${data[i]},${data[++i]},${data[++i]},`, 1);
+  }
+
+  const positions = [];
+  const normals = [];
+  const indices = [];
+  for (var [key] of map) {
+    const [x, y, z] = key.split(",").map((n) => Number(n));
+
+    for (const { dir, corners } of faces) {
+
+      // 根据不同的面判断对应方向是否存在相邻的点
+      const neighbor = map.get(`${x+dir[0]},${y+dir[1]},${z+dir[2]}`);
+
+      if (!neighbor) {
+        const ndx = positions.length / 3;
+        for (const pos of corners) {
+          positions.push(pos[0] + x, pos[1] + y, pos[2] + z);
+          normals.push(...dir);
+        }
+        indices.push(ndx, ndx + 1, ndx + 2, ndx + 2, ndx + 1, ndx + 3);
+      }
+    }
+  }
+
+  ctx.postMessage({
+    positionFloat32: new Float32Array(positions),
+    normalsFloat32: new Float32Array(normals),
+    indices
+  });
+}, false);
+
+// 监听错误事件
+ctx.addEventListener('error', () => {
+  console.log('error');
+});
+
+export default ctx;
+```
+
+主线程代码：
+
+``` js
+const worker = new Worker(new URL('point.worker.ts', import.meta.url), { type: 'module' });
+
+worker.postMessage(data); // 发送数据到worker线程
+
+worker.onmessage = (e) => {
+  const {positionFloat32, normalsFloat32, indices} = e.data;
+
+  // 注意：拿到解析好的数据后怎么渲染按照实际代码逻辑渲染
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positionFloat32, 3));
+  geometry.setAttribute('normal', new THREE.BufferAttribute(normalsFloat32, 3));
+  geometry.setIndex(indices);
+  const mesh = new THREE.Mesh(geometry, material); // 体素图对象
+};
+```
 
 
 
@@ -190,4 +262,4 @@ const mesh = new THREE.Mesh(geometry, material); // 体素图对象
 3、
 
 
-### 终极优化：WASM
+## 终极优化：WASM
