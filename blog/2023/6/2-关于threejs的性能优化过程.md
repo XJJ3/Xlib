@@ -2,7 +2,7 @@
 slug: threejs-optimize
 title: 基于threejs点云图的性能优化过程
 authors: xujunjie
-tags: [threejs, worker]
+tags: [threejs, worker, WebAssembly]
 ---
 
 最近几天在攻克一个性能问题，服务端以每秒十几赫兹（每秒接收十几次）的大数据，数据的大小可能在 60 多 KB 左右，然后要不断去解析数据、计算数据，最后用 threejs 来绘制出体素图。先看看大概的前端展示效果：
@@ -384,3 +384,67 @@ worker.onmessage = (e) => {
 };
 ```
 
+为了不想让帧数据被忽略丢失，提高帧数据的处理速度才是关键！所以就需要用到 `WebAssembly` ，简称 [WASM](https://webassembly.org/)。
+
+:::info
+
+WebAssembly (abbreviated Wasm) is a binary instruction format for a stack-based virtual machine. Wasm is designed as a portable compilation target for programming languages, enabling deployment on the web for client and server applications.
+
+:::
+
+具体的介绍可以前往官网一探究竟，总而言之，WebAssembly 是可以将例如 C、C++和 Rust 等低级源语言编译成一种运行在现代网络浏览器中的新型代码，并且可以和js做交互，一些Web上复杂的计算场景和游戏很多都是基于WASM实现的。我们的场景刚好就很适合用WASM来做优化，将帧数据的计算交给C语言来处理，最后将C语言代码编程成`.wasm`文件在浏览器中运行。
+
+首选要把处理逻辑用C语言来编写， 以下只是示例，具体实现方式按照实际逻辑编写：
+``` c title="voxel.c"
+
+/**
+  input 是接受的帧数据
+  用指针变量返回结果
+ */
+int generate(char *input, int *decompressed_data)
+{
+  // ... 定义相关变量
+  // ...
+
+  // LZ4解压后的数据
+  *decompressed_data = LZ4_decompress_safe(input, decompress_buffer, input_size, decompress_buffer_size);
+
+  for (int i = 0; i < *decompressed_data; i++){
+    // 遍历帧数据做处理
+  }
+}
+```
+
+接着需要借助 `Emscripten` 来将C语言代码编译成wasm，什么是 Emscripten ，怎么使用前往[官网](https://emscripten.org/)查看，有详细教程不难。
+
+接着在js Worker中将帧数据提交给wasm：
+
+``` js 
+
+let voxelModule: WebAssembly.Module;
+fetch('./voxel.wasm')
+  .then((res) => {
+    return res.arrayBuffer();
+  })
+  .then(WebAssembly.instantiate)
+  .then((module) => {
+    // ....
+    voxelModule = module.instance.exports;
+    // ....
+  });
+
+
+// 处理数据的地方
+function dealData(data: Uint8Array) {
+  // ....
+  voxelModule.generate(data); // 传递给C进行处理
+  // ....
+}
+```
+:::tip
+详细的逻辑代码有点复杂，这里只是大概贴了一下代码思路，重要的是解决方案。
+:::
+
+最后实测，每一帧的处理速度由原先的70毫秒左右变成了6毫秒左右，整整快了十倍有余，方案可行！！
+
+WebAssembly，改善了JavaScript，给了Web更好的性能和更多的可能，这无疑是打开了一个Web新世界。随着WebAssembly的技术越来越成熟，势必会有更多的应用，从Desktop被搬到Web上，这会使本来已经十分强大的Web更加丰富和强大。
